@@ -429,7 +429,7 @@ var.weight<-t(var.weight)
 
 var.weight[lower.tri(var.weight)]=var.wei
 
-###################### Figure 2##########################################
+###################### Example ##########################################
 
 efficacy=array(efficacy,dim=c(dim(efficacy)[1],dim(efficacy)[2],1))
 var.efficacy=array(var.efficacy,dim=c(dim(var.efficacy)[1],dim(var.efficacy)[2],1))
@@ -460,8 +460,8 @@ rankings <-apply(pscores.efficacy, 1, rank)
 rankings2 <- apply(pscores.efficacy2, 1, rank)
 
 
-png("univariate.png", width = 10, height = 5, units = "in", res = 300)
-par(mfrow = c(1,2), oma = c(2, 1, 0, 0))
+png("univariate.png", width = 10, height = 4, units = "in", res = 300)
+par(mfrow = c(1,2),  mar = c(4, 4, 1, 1))
 
 plot(0,0,ylim=c(0,1),type="l",xlim=c(-0.055,max(beta)),xlab="CIV",ylab="P-score (variable mean)", xaxt = "n")
 axis(side = 1, labels = T, at = c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5))
@@ -508,7 +508,7 @@ lines(beta,rowMeans(pscores.efficacy2),type='b')
 text(x = -0.04, y = c(pscores.efficacy2[1, 1:5], 0.5, pscores.efficacy[1, 16]), labels = c(antipsychotic[1:5], "mean", antipsychotic[16]))
 
 dev.off()
-# Figure 3 ----------------------------------------------------------
+# Calculating multivariate P-scores ----------------------------------------------------------
 
 k=2
 
@@ -520,7 +520,6 @@ outcomes[,,2]<-weight
 var.outcomes<-array(rep(0,p^2*k),c(p,p,k))
 var.outcomes[,,1]<-var.efficacy
 var.outcomes[,,2]<-var.weight
-
 
 
 correlation=matrix(c(1,-0.5,-0.5,1),2,2)
@@ -539,7 +538,7 @@ rowMeans(pscores.weight2)
 
 par(mfrow = c(1,2))
 
-plot(0,0,ylim=c(0,1),type="l",xlim = range(gamma),ylab="p-score (Mavridis et al)",xlab="CIV",main="")
+plot(0,0,ylim=c(0,1),type="l",xlim = range(gamma),ylab="p-score (variable mean)",xlab="CIV",main="")
 lines(gamma,pscores.weight[1:length(gamma),1],col="red")
 lines(gamma,pscores.weight[1:length(gamma),2],col="green")
 lines(gamma,pscores.weight[1:length(gamma),3],col="blue")
@@ -558,7 +557,7 @@ lines(gamma,pscores.weight[1:length(gamma),15])
 lines(gamma,pscores.weight[1:length(gamma),16])
 lines(gamma,rowMeans(pscores.weight),type='b')
 
-plot(0,0,ylim=c(0,1),type="l",xlim=range(gamma),ylab="p-score (new)",xlab="CIV",main="")
+plot(0,0,ylim=c(0,1),type="l",xlim=range(gamma),ylab="p-score (fixed mean)",xlab="CIV",main="")
 lines(gamma,pscores.weight2[1:length(gamma),1],col="red")
 lines(gamma,pscores.weight2[1:length(gamma),2],col="green")
 lines(gamma,pscores.weight2[1:length(gamma),3],col="blue")
